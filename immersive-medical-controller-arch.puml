@@ -1,0 +1,81 @@
+@startuml immersive_controller_arch
+!define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/master/dist
+!include AWSPuml/AWSCommon.puml
+!include AWSPuml/NetworkingAndContentDelivery/all.puml
+!include AWSPuml/Storage/all.puml
+!include AWSPuml/Compute/all.puml
+!include <C4/C4_Container.puml>
+!include <C4/C4_Component.puml>
+
+title Immersive Medical Controller
+
+
+Person(user, "Doctor")
+' Person(spectators, "Spectators")
+
+System_Boundary(telerobotics, "Telerobotics") {
+	Person(patient, "Patient")
+    Container(cloud, "Telerobotic Services", "Azure")
+    Container(robot, "Robot", "hardware")
+    Container(device, "Caridac Catheter", "medical device")
+
+    Rel_(cloud, robot, "Robotic Commands", "protobuf", "-->")
+    Rel_(robot, device, "Device Manipulation", "mechanical movement", "-->")
+    Rel_(device, patient, "Treats", "analog", "-->")
+}
+
+System(pluto, "Pluto")
+System(rooms_gadget, "Aardvark Rooms Gadget")
+
+System_Boundary(project, "Immersive Medical Controller") {
+    Container(controller_model, "Model", "commands") 
+    Container(controller_view, "View", "UI/UX")
+
+    Container_Boundary(controller, "Controllers") {
+        Container(telerobotic_sdk, "Telerobotic SDK", "Typescript")
+        Container(input_handler, "Input Handler", "javascript")
+    }
+    Rel_(input_handler, controller_model, "Set Velocities\nforward/backward\nrotation\ndeflection", "floats", "-->")
+    Rel_(input_handler, controller_model, "Set Device Position", "x, y, z", "-->")
+    Rel_(controller_model, telerobotic_sdk, "On Velocity Changed\nforward/backward\nrotation\ndeflection", "event", "-UP->")
+    Rel_(controller_model, controller_view, "On Device Position Changed", "event", "-->")
+}
+
+Rel_(pluto, rooms_gadget, "Pluto data", "socket", "-->")
+Rel_(rooms_gadget, project, "Multi-user capabilities", "javascript", "-->")
+
+Rel_(user, pluto, "Human Data / Metaverse Data", "Sensor I/O", "<->")
+' Rel_(pluto, spectators, "Human Data / Metaverse Data", "Sensor Input/Output", "<->")
+
+Rel_(user, input_handler, "XR Controller Action\njoystick movement\nbutton press", "json", "--->")
+
+Rel_(telerobotic_sdk, cloud, "Robotic Commands", "protobuf", "-->")
+' System_Boundary(plutoAWS, "Pluto AWS Service") {
+' 	System(LiveSwitch, "LiveSwitch", "")
+
+' 	ElasticBeanstalkApplication(mercury, "Mercury", "Pluto Call Signaling")
+' 	ElasticBeanstalkApplication(uds, "User Data Service", "Pluto Account Information")
+
+' 	CloudFront(cloudFront, "CloudFront", "Static Distribution")
+' }
+
+' System_Ext(playfab, "Microsoft Playfab", "")
+' System_Ext(apns, "Apple Push Notification Service", "")
+
+' Rel_(shell, cloudFront, "[[https://shell.pluto-api.com Shell UI]]\nAurelia app interface", "HTTPS", "-->")
+' Rel_(pluto, cloudFront, "Avatar data\nglTF", "HTTPS", "-->")
+
+
+' Rel_(pluto, LiveSwitch, "Converstion Data\nAudio\nColor & Depth Video\nPluto Metadata", "WebRTC", "<-->")
+
+' Rel_(shell, uds, "Account Information", "REST", "-->")
+' Rel_(shell, mercury, "Account info + Call signaling", "WebSocket", "<-->")
+' Rel_(pluto, mercury, "Call Signaling\n(Background)", "REST", "-->")
+
+' Rel_(uds, playfab, "User data", "REST", "-->")
+' Rel_(mercury, playfab, "Account info", "REST", "-->")
+' Rel_(mercury, apns, "Push Notifications", "REST", "-->")
+
+' Rel_(pluto, apns, "Push Notificatons", "PUSH", "<---")
+
+@enduml
