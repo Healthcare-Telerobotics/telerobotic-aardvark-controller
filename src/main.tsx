@@ -3,6 +3,23 @@ import { EAction, EHand, g_builtinModelBox, InitialInterfaceLock, Av } from '@aa
 import bind from 'bind-decorator';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import TeleroboticsNetworkAdapter from './telerobotics/teleroboticsnetworkadapter';
+import RobotController from './telerobotics/robotController'
+
+const
+    io = require("socket.io-client"),
+	socket = io.connect("https://e0f1b38806d1.ngrok.io");
+
+const tna = new TeleroboticsNetworkAdapter(socket)
+const documentElement = (document as any) as HTMLElement
+const robotController = new RobotController(tna, documentElement)
+
+// var velocity = 0
+// setInterval(() => {
+
+// 	robotController.setMovementVelocity(0)
+// 	robotController.sendFrameData()
+// }, 1000)
 
 const k_TestPanelInterface = "test_panel_counter@1";
 

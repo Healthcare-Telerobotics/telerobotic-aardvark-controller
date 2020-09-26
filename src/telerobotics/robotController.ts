@@ -14,7 +14,7 @@ export default class RobotController {
         this._tna = tna
     }
 
-    public SendFrameData() {
+    public sendFrameData() {
         if (this._dataChanged) {
             this._tna.setRobotControllerData(this._data)
             this._dataChanged = false
