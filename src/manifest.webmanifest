@@ -3,7 +3,7 @@
 	"name": "mygadge",
 	"icons": [
 		{
-			"src": "models/placeholder.glb",
+			"src": "models/ez_steer.glb",
 			"type": "model/gltf-binary"
 		}
 	],
