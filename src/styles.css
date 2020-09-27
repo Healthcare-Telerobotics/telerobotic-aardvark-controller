@@ -7,7 +7,7 @@ body, html
 .Button 
 {
 	background-color: lightcoral;
-	font-size: 4rem;
+	font-size: 5rem;
 }
 
 .Label
@@ -38,4 +38,13 @@ body, html
 .GrabbedHighlight
 {
 	background-color: blue;
+}
+
+.controllerValues {
+	font-size: 5rem;
+}
+
+button 
+{
+	font-size: 5rem;
 }
