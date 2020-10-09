@@ -1,6 +1,6 @@
 {
 	"xr_type": "aardvark-gadget@^1.0.2",
-	"name": "mygadge",
+	"name": "Telerobotic Controller",
 	"icons": [
 		{
 			"src": "models/ez_steer.glb",
