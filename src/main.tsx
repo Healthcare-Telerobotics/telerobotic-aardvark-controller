@@ -8,7 +8,7 @@ import RobotController from './telerobotics/robotController'
 
 const
     io = require("socket.io-client"),
-	socket = io.connect("https://e0f1b38806d1.ngrok.io");
+	socket = io.connect("https://0b8318cf2450.ngrok.io");
 
 const tna = new TeleroboticsNetworkAdapter(socket)
 const documentElement = (document as any) as HTMLElement
@@ -59,6 +59,9 @@ class MyGadget extends React.Component< {}, DefaulGadgetState >
 				up: true,
 			}
 		})
+
+		robotController.setMovementVelocity(1)
+		robotController.sendFrameData()
 	}
 
 	@bind
@@ -69,6 +72,9 @@ class MyGadget extends React.Component< {}, DefaulGadgetState >
 				up: false,
 			}
 		})
+
+		robotController.setMovementVelocity(0)
+		robotController.sendFrameData()
 	}
 
 	@bind
@@ -79,6 +85,9 @@ class MyGadget extends React.Component< {}, DefaulGadgetState >
 				down: true,
 			}
 		})
+
+		robotController.setMovementVelocity(-1)
+		robotController.sendFrameData()
 	}
 
 	@bind
@@ -89,6 +98,9 @@ class MyGadget extends React.Component< {}, DefaulGadgetState >
 				down: false,
 			}
 		})
+
+		robotController.setMovementVelocity(0)
+		robotController.sendFrameData()
 	}
 
 	@bind
@@ -99,6 +111,9 @@ class MyGadget extends React.Component< {}, DefaulGadgetState >
 				left: true,
 			}
 		})
+
+		robotController.setRotationVelocity(-1)
+		robotController.sendFrameData()
 	}
 
 	@bind
@@ -109,6 +124,9 @@ class MyGadget extends React.Component< {}, DefaulGadgetState >
 				left: false,
 			}
 		})
+
+		robotController.setRotationVelocity(0)
+		robotController.sendFrameData()
 	}
 
 	@bind
@@ -119,6 +137,9 @@ class MyGadget extends React.Component< {}, DefaulGadgetState >
 				right: true,
 			}
 		})
+
+		robotController.setRotationVelocity(1)
+		robotController.sendFrameData()
 	}
 
 	@bind
@@ -129,6 +150,9 @@ class MyGadget extends React.Component< {}, DefaulGadgetState >
 				right: false,
 			}
 		})
+
+		robotController.setRotationVelocity(0)
+		robotController.sendFrameData()
 	}
 
 	@bind
@@ -139,6 +163,9 @@ class MyGadget extends React.Component< {}, DefaulGadgetState >
 				deflectUp: true,
 			}
 		})
+
+		robotController.setDeflectionVelocity(1)
+		robotController.sendFrameData()
 	}
 
 	@bind
@@ -149,6 +176,9 @@ class MyGadget extends React.Component< {}, DefaulGadgetState >
 				deflectUp: false,
 			}
 		})
+
+		robotController.setDeflectionVelocity(0)
+		robotController.sendFrameData()
 	}
 
 	@bind
@@ -159,6 +189,9 @@ class MyGadget extends React.Component< {}, DefaulGadgetState >
 				deflectDown: true,
 			}
 		})
+
+		robotController.setDeflectionVelocity(-1)
+		robotController.sendFrameData()
 	}
 
 	@bind
@@ -169,6 +202,9 @@ class MyGadget extends React.Component< {}, DefaulGadgetState >
 				deflectDown: false,
 			}
 		})
+
+		robotController.setDeflectionVelocity(0)
+		robotController.sendFrameData()
 	}
 
 	public render()
